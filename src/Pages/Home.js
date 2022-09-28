@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import PostUnit from "../Components/PostUnit";
 
 const Home = () => {
-    let [ postData, setPostData ] = useState([]);
+    let [ allPostData, setAllPostData ] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:3000")
         .then( res => res.json())
         .then(
           (res) => {
-            setPostData(res);
+
+              setAllPostData(res);
           }
         )
       }, []);
@@ -20,7 +21,7 @@ const Home = () => {
             <a href="/blog/new_post"> Create Post </a>
 
             <div className="post-display-wrapper">
-                { postData.map((post) => {
+                { allPostData.map((post, index) => {
                     return (
                         <PostUnit post = { post } />
                     )
