@@ -17,7 +17,7 @@ const Home = () => {
     return (
         <div className="content-wrapper">
             <h1> My Blog! </h1> 
-            <a href="/new_post"> Create Post </a>
+            <a href="/blog/new_post"> Create Post </a>
 
             <div className="post-display-wrapper">
                 { postData.map((post) => {
