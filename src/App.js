@@ -5,6 +5,7 @@ import './Styles/index.css';
 
 import Home from './Pages/Home';
 import NewPost from './Pages/NewPost';
+import Post from "./Pages/Post";
 
 function App() {
 
@@ -15,8 +16,9 @@ function App() {
         <BrowserRouter basename='/blog'>
           <Routes>
             <Route path="/" element={ <Navigate to="/posts" /> } />
-            <Route path='/posts' element={<Home />} />
-            <Route path='/new_post' element={ <NewPost />} />
+            <Route path="/posts" element={<Home />} />
+            <Route path="/post/:id" element={<Post />} />
+            <Route path="/new_post" element={ <NewPost />} />
           </Routes>
         </BrowserRouter>
 

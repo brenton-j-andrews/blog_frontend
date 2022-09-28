@@ -1,11 +1,12 @@
 import React from "react";
 
-const PostUnit = ({ post }) => {
+const PostUnit = ({ post, selectPost }) => {
+
     return (
         <div className="post-display-unit">
             <h3> { post.title }</h3>
             <h6> Published by: { post.author.username } </h6>
-            <a href="/blog/posts/post_id..."> View Post </a>
+            <button onClick={() => {selectPost(post)}}> View Post </button>
         </div>
 
     )
