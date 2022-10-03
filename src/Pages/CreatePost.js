@@ -1,12 +1,12 @@
 import React from "react";
 
-const NewPost = () => {
+const CreatePost = () => {
     return (
         <div>
-            <a href="/blog/posts"> Return home </a>
+            <a href="/"> Return home </a>
             This is the new posts page!
         </div>
     )
 }
 
-export default NewPost;
+export default CreatePost;

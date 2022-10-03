@@ -5,10 +5,13 @@ const Post = ({ props }) => {
 
     return (
         <div>
-            <p> Author: {props.author.username}</p>
-            <p> Title: {props.title} </p>
-            <p> {props.postContent} </p>
-            <a href="/blog"> Return Home </a>
+            <div className="post-content">
+                <p> Author: {props.author}</p>
+                <p> Title: {props.title} </p>
+                <p> {props.postContent} </p>
+            </div>
+
+            <a href="/"> Return Home </a>
         </div>     
     )
 }

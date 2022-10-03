@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './Styles/index.css';
 
 import Home from './Pages/Home';
-// import NewPost from './Pages/NewPost';
 import Post from "./Pages/Post";
+import CreatePost from "./Pages/CreatePost";
 
 function App() {
 
   let [ postData, setPostData ] = useState([]);
-  let [ comments, setComments ] = useState([]);
 
   // Fetch data from api.
   useEffect(() => {
-      fetch("http://localhost:3000")
+      fetch("http://localhost:3000/api/posts")
       .then( res => res.json())
       .then(
         (res) => {
-          console.log(res);
-          setPostData(res.posts);
-          setComments(res.comments);
+          setPostData(res);
         }
       )
     }, []);
@@ -30,21 +27,21 @@ function App() {
     <div className="App">
       <div className='content-wrapper'>
 
-        <BrowserRouter basename='/blog'>
+        <BrowserRouter basename='/'>
 
           <Routes>
 
             <Route 
-              exact
+              exact 
               path="/" 
-              element={ <Navigate to="/posts" /> } 
+              element = { <Home postData={postData} />} 
             />
 
             <Route 
-              exact 
-              path="/posts" 
-              element = { <Home postData={postData} />} 
-              />
+              exact
+              path="/post/create_post"
+              element = { <CreatePost /> }
+            />
 
             {postData.map((post) => {
               return (
@@ -56,7 +53,6 @@ function App() {
                 />
               )
             })}
-
 
           </Routes>
         </BrowserRouter>

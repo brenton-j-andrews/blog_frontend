@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import PostUnit from "../Components/PostUnit";
+import PostPreview from "../Components/PostPreview";
 
 const Home = ({ postData }) => {
     
@@ -14,13 +14,14 @@ const Home = ({ postData }) => {
 
     return (
         <div className="content-wrapper">
-            <h1> My Blog! </h1> 
-            <a href="/blog/new_post"> Create Post </a>
+            <h1> My Blog!!! </h1> 
+            <a href="/post/create_post"> Create Post </a>
 
             <div className="post-display-wrapper">
-                { postData.map((post, index) => {
+                { postData.map((post) => {
+
                     return (
-                        <PostUnit 
+                        <PostPreview 
                         post = { post} 
                         selectPost = { navigateToPost }
                         key = { post._id }
