@@ -8,7 +8,7 @@ const Post = ({ props }) => {
             <div className="post-content">
                 <p> Author: {props.author}</p>
                 <p> Title: {props.title} </p>
-                <p> {props.postContent} </p>
+                <p> {props.text} </p>
             </div>
 
             <a href="/"> Return Home </a>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 
 import './Styles/index.css';
 
@@ -11,15 +12,12 @@ function App() {
 
   let [ postData, setPostData ] = useState([]);
 
-  // Fetch data from api.
+  // Fetch blog data from api.
   useEffect(() => {
-      fetch("http://localhost:3000/api/posts")
-      .then( res => res.json())
-      .then(
-        (res) => {
-          setPostData(res);
-        }
-      )
+      axios.get("http://localhost:3000/api/posts")
+      .then(res => {
+        setPostData(res.data);
+      })
     }, []);
 
 
