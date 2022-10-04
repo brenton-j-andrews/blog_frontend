@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 const CreatePost = ({ postData, setPostData }) => {
 
     const navigate = useNavigate();
 
     const [ errorArray, setErrorArray ] = useState([]);
+    const [ showErrorAlert, setShowErrorAlert ] = useState(false);
     const [ formData, setFormData ] = useState({
         title : "",
         author: "",
@@ -28,9 +30,9 @@ const CreatePost = ({ postData, setPostData }) => {
             navigate(`/post/${response.data._id}`);
         })
         .catch(function(error) {
-            console.log(error);
             const error_messages = Array.from(error.response.data.errors);
             setErrorArray([...error_messages]);
+            setShowErrorAlert(true);
         }) 
   
         
@@ -47,12 +49,8 @@ const CreatePost = ({ postData, setPostData }) => {
         }))
     }
 
-
     return (
         <div>
-            <a href="/"> Return home </a>
-            <p> This is the new post page! Fill out the form below... </p>
-
             <Form onSubmit={handleSubmit}>
                 
                 <Form.Group className="m-0" controlId="author">
@@ -63,7 +61,6 @@ const CreatePost = ({ postData, setPostData }) => {
                     value={formData.author}
                     onChange={handleChange}
                     />
-
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="title">
@@ -74,7 +71,6 @@ const CreatePost = ({ postData, setPostData }) => {
                     value={formData.title}
                     onChange={handleChange}
                     />
-
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="text">
@@ -84,27 +80,25 @@ const CreatePost = ({ postData, setPostData }) => {
                     rows={10} 
                     placeholder="Enter post content"
                     value={formData.text}
-                    onChange={handleChange} 
+                    onChange={handleChange} div
                     />
-        
                 </Form.Group>
                 
                 <Button type="submit"> Add Post </Button>
             </Form> 
 
+            {/* Dismissable alert box for validation errors. */}
+            {showErrorAlert &&
+                <Alert variant="danger" onClose={() => setShowErrorAlert(false)} dismissible>
+                    <Alert.Heading> Fix the errors listed below and resubmit. </Alert.Heading>
+                    {errorArray.map((error, index) => {
+                        return (
+                            <p key={index}> {error.msg} </p>
+                        )
+                    })}
+                </Alert>
+            }
 
-            <div>
-                {errorArray.length !== 0 &&
-                    <div>
-                        <p> Errors: </p>
-                        {errorArray.map((error, index) => {
-                            return (
-                                <p key={index}> {error.msg} </p>
-                            )
-                        })}
-                    </div>
-                }
-            </div>
         </div>
     )
 }
