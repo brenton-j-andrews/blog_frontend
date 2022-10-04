@@ -6,12 +6,13 @@ const CreatePost = () => {
 
     const navigate = useNavigate();
 
+    const [ errorArray, setErrorArray ] = useState([]);
     const [formData, setFormData] = useState({
         title : "",
         author: "",
         text: "",
-        message: ""
     })
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +24,8 @@ const CreatePost = () => {
             navigate(`/post/${response.data._id}`);
         })
         .catch(function(error) {
-            console.log(error)
+            const error_messages = Array.from(error.response.data.errors);
+            setErrorArray([...error_messages]);
         }) 
   
         
@@ -37,7 +39,6 @@ const CreatePost = () => {
             ...prevState,
             [name] : value
         }))
-
     }
 
 
@@ -78,9 +79,20 @@ const CreatePost = () => {
                 </label>    
 
                 <input type="submit" value="Add Post"/>
-
-                <div> { formData.message ? <p> {formData.message} </p> : null } </div>
             </form> 
+
+            <div>
+                {errorArray.length !== 0 &&
+                    <div>
+                        <p> Errors: </p>
+                        {errorArray.map((error, index) => {
+                            return (
+                                <p key={index}> {error.msg} </p>
+                            )
+                        })}
+                    </div>
+                }
+            </div>
         </div>
     )
 }

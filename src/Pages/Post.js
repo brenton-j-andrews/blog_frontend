@@ -1,17 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 const Post = ({ props }) => {
 
     let [ isDeleted, setIsDeleted ] = useState(false);
 
-    // const navigate = useNavigate();
 
     const handleDeletion = () => {
-        axios.delete(`http://localhost:3000/api/post/${props._id}`)
+        axios.delete(`http://localhost:3000/api/post/${props._id}/delete`)
         setIsDeleted(true);
-        // navigate("/");
     }
 
     return (
