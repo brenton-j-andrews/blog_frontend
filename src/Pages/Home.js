@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import  Button from 'react-bootstrap/Button';
+
 
 import PostPreview from "../Components/PostPreview";
 
@@ -15,6 +17,7 @@ const Home = ({ postData }) => {
     return (
         <div className="content-wrapper">
             <h1> My Blog!!! </h1> 
+            
             <a href="/post/create_post"> Create Post </a>
 
             <div className="post-display-wrapper">

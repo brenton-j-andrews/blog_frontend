@@ -38,7 +38,11 @@ function App() {
             <Route 
               exact
               path="/post/create_post"
-              element = { <CreatePost /> }
+              element = { 
+              <CreatePost 
+                postData = {postData}
+                setPostData = {setPostData}
+              /> }
             />
 
             {postData.map((post) => {

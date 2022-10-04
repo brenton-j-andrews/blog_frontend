@@ -2,12 +2,15 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreatePost = () => {
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+
+const CreatePost = ({ postData, setPostData }) => {
 
     const navigate = useNavigate();
 
     const [ errorArray, setErrorArray ] = useState([]);
-    const [formData, setFormData] = useState({
+    const [ formData, setFormData ] = useState({
         title : "",
         author: "",
         text: "",
@@ -21,9 +24,11 @@ const CreatePost = () => {
 
         axios.post("http://localhost:3000/api/post/create_post", formData, header)
         .then( function(response) {
+            setPostData((prevState) => [...prevState, response.data]);
             navigate(`/post/${response.data._id}`);
         })
         .catch(function(error) {
+            console.log(error);
             const error_messages = Array.from(error.response.data.errors);
             setErrorArray([...error_messages]);
         }) 
@@ -32,8 +37,9 @@ const CreatePost = () => {
     }
 
     const handleChange = (e) => {
-        
-        let { name, value } = e.target;
+    
+        let name = e.target.id;
+        let value = e.target.value;
 
         setFormData((prevState) => ({
             ...prevState,
@@ -47,39 +53,45 @@ const CreatePost = () => {
             <a href="/"> Return home </a>
             <p> This is the new post page! Fill out the form below... </p>
 
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 
-                <label>
-                    Name:
-                    <input 
-                        type="text"
-                        name="author"
-                        value= {formData ? formData.name : ""}
-                        onChange={handleChange}
+                <Form.Group className="m-0" controlId="author">
+                    <Form.Label> Author Name </Form.Label>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="Enter author name" 
+                    value={formData.author}
+                    onChange={handleChange}
                     />
-                </label>    
 
-                <label>
-                    Post Title:
-                    <input 
-                        type="text"
-                        name="title"
-                        value={formData ? formData.title : ""}
-                        onChange={handleChange}
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="title">
+                    <Form.Label> Post Title </Form.Label>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="Enter post title" 
+                    value={formData.title}
+                    onChange={handleChange}
                     />
-                </label>    
-                <label>
-                    Post Text:
-                    <textarea 
-                        type="text"
-                        name="text"
-                        value={formData ? formData.text : ""}
-                        onChange={handleChange}
-                    />  
-                </label>    
 
-                <input type="submit" value="Add Post"/>
-            </form> 
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="text">
+                    <Form.Label> Post Content </Form.Label>
+                    <Form.Control 
+                    as="textarea" 
+                    rows={10} 
+                    placeholder="Enter post content"
+                    value={formData.text}
+                    onChange={handleChange} 
+                    />
+        
+                </Form.Group>
+                
+                <Button type="submit"> Add Post </Button>
+            </Form> 
+
 
             <div>
                 {errorArray.length !== 0 &&
