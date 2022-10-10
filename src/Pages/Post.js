@@ -1,10 +1,17 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import CreatePost from "./CreatePost";
 
 const Post = (props) => {
 
+    const [ editMode, setEditMode ] = useState(false);
+
+
     const navigate = useNavigate();
+
+    const toggleEditMode = () => setEditMode(!editMode);
 
     const deletePost = () => {
 
@@ -26,16 +33,32 @@ const Post = (props) => {
     }
 
     return (
-        <div className="post-content">
-            <p> Author: {props.post.author}</p>
-            <p> Title: {props.post.title} </p>
-            <p> {props.post.text} </p>
+        <div>
+            {
+                editMode ? 
+            
+                <div>
+                    <CreatePost
+                    post={props.post}
+                    ></CreatePost>
+                    <button onClick={toggleEditMode}> Editting complete </button>
+                </div>
+                
+                :
+                
+                <div className="post-content">
+                    <p> Author: {props.post.author}</p>
+                    <p> Title: {props.post.title} </p>
+                    <p> {props.post.text} </p>
 
-            <a href="/"> Return Home </a>
-            <button onClick={deletePost}> Delete post </button>
-            {/* <button onClick={() => {handleDeletion()}}> Update post </button> */}
-
-        </div>
+                    <a href="/"> Return Home </a>
+                    <button onClick={deletePost}> Delete post </button>
+                    <button onClick={toggleEditMode}> Edit post </button>
+                </div>
+                
+            }
+        
+            </div>
     )
 }
 

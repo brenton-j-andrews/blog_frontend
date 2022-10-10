@@ -18,10 +18,6 @@ function App() {
   let [ toastText, setToastText ] = useState("");
   let [ postData, setPostData ] = useState([]);
 
-
-  console.log(postData);
-
-  
   // Fetch blog data from api.
   useEffect(() => {
       axios.get("http://localhost:3000/api/posts")
@@ -29,7 +25,6 @@ function App() {
         setPostData(res.data);
       })
     }, []);
-
 
   // Show 'toast' component for 5 seconds before dismissing, unless manually dismissed.
   useEffect(() => {
@@ -62,14 +57,19 @@ function App() {
             exact
             path="/post/create_post"
             element = { 
+
             <CreatePost 
               postData = {postData}
               setPostData = {setPostData}
+              setShowToast={setShowToast}
+              setToastText={setToastText}
             /> }
           />
 
           {postData.map((post) => {
+
             return (
+
               <Route 
                 exact 
                 path={`/post/${post._id}`}
@@ -83,6 +83,7 @@ function App() {
                   setShowToast={setShowToast}
                   setToastText={setToastText}
                   />}
+
               />
             )
           })}

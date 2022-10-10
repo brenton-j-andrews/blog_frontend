@@ -10,7 +10,6 @@ import Col from "react-bootstrap/Col";
 
 const Home = ({ postData }) => {
     
-
     const navigate = useNavigate();
 
     function navigateToPost(post) {

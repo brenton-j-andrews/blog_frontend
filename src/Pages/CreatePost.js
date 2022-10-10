@@ -6,16 +6,16 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 
-const CreatePost = ({ postData, setPostData }) => {
-
+const CreatePost = (props) => {
+    console.log(props);
     const navigate = useNavigate();
 
     const [ errorArray, setErrorArray ] = useState([]);
     const [ showErrorAlert, setShowErrorAlert ] = useState(false);
     const [ formData, setFormData ] = useState({
-        title : "",
-        author: "",
-        text: "",
+        title : props.post ? props.post.title : "",
+        author: props.post ? props.post.author : "",
+        text: props.post ? props.post.text : ""
     })
     
 
@@ -26,7 +26,9 @@ const CreatePost = ({ postData, setPostData }) => {
 
         axios.post("http://localhost:3000/api/post/create_post", formData, header)
         .then( function(response) {
-            setPostData((prevState) => [...prevState, response.data]);
+            props.setPostData((prevState) => [...prevState, response.data]);
+            props.setToastText("New post successfully created.");
+            props.setShowToast(true);
             navigate(`/post/${response.data._id}`);
         })
         .catch(function(error) {
