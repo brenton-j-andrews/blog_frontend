@@ -18,6 +18,9 @@ function App() {
   let [ toastText, setToastText ] = useState("");
   let [ postData, setPostData ] = useState([]);
 
+
+  console.log(postData);
+
   
   // Fetch blog data from api.
   useEffect(() => {
@@ -28,7 +31,7 @@ function App() {
     }, []);
 
 
-  // Show 'toast' component for 5 seconds before dismissing.
+  // Show 'toast' component for 5 seconds before dismissing, unless manually dismissed.
   useEffect(() => {
     if (showToast) {
       setTimeout(() => setShowToast(false), 3000);
@@ -72,8 +75,11 @@ function App() {
                 path={`/post/${post._id}`}
                 key={post._id}
                 element = { 
+
                   <Post 
                   post={post}
+                  postData={postData}
+                  setPostData={setPostData}
                   setShowToast={setShowToast}
                   setToastText={setToastText}
                   />}
