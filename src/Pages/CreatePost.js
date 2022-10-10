@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 
 const CreatePost = (props) => {
-    console.log(props);
+
     const navigate = useNavigate();
 
     const [ errorArray, setErrorArray ] = useState([]);
@@ -19,7 +19,8 @@ const CreatePost = (props) => {
     })
     
 
-    const handleSubmit = async (e) => {
+    // Handles post request for new posts.
+    const handleNewPost = async (e) => {
         e.preventDefault();
 
         const header = { 'Content-Type': 'application/json' }
@@ -29,15 +30,40 @@ const CreatePost = (props) => {
             props.setPostData((prevState) => [...prevState, response.data]);
             props.setToastText("New post successfully created.");
             props.setShowToast(true);
-            navigate(`/post/${response.data._id}`);
+            navigate(`/post/${response.data.id}`);
         })
         .catch(function(error) {
             const error_messages = Array.from(error.response.data.errors);
             setErrorArray([...error_messages]);
             setShowErrorAlert(true);
         }) 
-  
-        
+    }
+
+    // Handles post request for updating posts.
+    const handleUpdatePost = (e) => {
+        e.preventDefault();
+
+        console.log(props.postData);
+        const header = { 'Content-Type': 'application/json' }
+
+        axios.post(`http://localhost:3000/api/post/${props.post._id}`, formData, header)
+        .then( function(response) {
+            props.setShowToast(true);
+            props.setToastText(`Post has been updated.`);
+            props.toggleEditMode(false);
+
+            // Update postData array... Might be a better way to achieve this?
+            for (const post of props.postData) {
+                if (post._id === props.post._id) {
+                    post.title = formData.title;
+                    post.author = formData.author;
+                    post.text = formData.text;
+                    break;
+                }
+            }
+
+            navigate(`/post/${response.data._id}`);
+        })
     }
 
     const handleChange = (e) => {
@@ -51,11 +77,16 @@ const CreatePost = (props) => {
         }))
     }
 
+    const handleNavigate = (e) => {
+        props.post ? props.toggleEditMode(false) : navigate('/');
+    }
+
     return (
+
         <div>
-            <Button onClick={() => {navigate('/')}}> Return Home </Button>
+            <Button onClick={handleNavigate}> {props.post ? "Return to Post" : "Return Home"} </Button>
             
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={props.post ? handleUpdatePost : handleNewPost }>
                 
                 <Form.Group className="m-0" controlId="author">
                     <Form.Label> Author Name </Form.Label>
@@ -87,9 +118,10 @@ const CreatePost = (props) => {
                     onChange={handleChange}
                     />
                 </Form.Group>
-                
-                <Button type="submit"> Add Post </Button>
+            
+                <Button type="submit"> {props.post ? "Submit Edit" : "Add Post"} </Button>
             </Form> 
+           
 
             {/* Dismissable alert box for validation errors. */}
             {showErrorAlert &&

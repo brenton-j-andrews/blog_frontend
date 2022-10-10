@@ -40,8 +40,12 @@ const Post = (props) => {
                 <div>
                     <CreatePost
                     post={props.post}
+                    toggleEditMode={toggleEditMode}
+                    postData={props.postData}
+                    setPostData={props.setPostData}
+                    setShowToast={props.setShowToast}
+                    setToastText={props.setToastText}
                     ></CreatePost>
-                    <button onClick={toggleEditMode}> Editting complete </button>
                 </div>
                 
                 :
