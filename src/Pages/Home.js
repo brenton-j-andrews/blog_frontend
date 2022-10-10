@@ -1,7 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import PostPreview from "../Components/PostPreview";
+// Import Bootstrap components.
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 
 const Home = ({ postData }) => {
     
@@ -13,25 +18,21 @@ const Home = ({ postData }) => {
     }
 
     return (
-        <div className="content-wrapper">
-            <h1> My Blog!!! </h1> 
-            
-            <a href="/post/create_post"> Create Post </a>
-
-            <div className="post-display-wrapper">
-                { postData.map((post) => {
-
+        <Container className="flex-column">
+            <Row>
+                {postData.map((post) => {
                     return (
-                        <PostPreview 
-                        post = { post} 
-                        selectPost = { navigateToPost }
-                        key = { post._id }
-                        />
+                        <Col xs={12} md={4} 
+                        className="m-4 p-5 border"
+                        key={post._id} >
+                            <h3 className="pb-2"> { post.title} </h3>
+                            <h6 className="pb-2"> Published by: { post.author } </h6>
+                            <Button onClick={() => {navigateToPost(post)}}> View Post </Button>
+                        </Col>
                     )
                 })}
-            </div>
-            
-        </div>
+            </Row>
+        </Container>
     )
 }
 

@@ -1,27 +1,38 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Post = ({ props }) => {
+const Post = (props) => {
 
+    const navigate = useNavigate();
     let [ isDeleted, setIsDeleted ] = useState(false);
 
-
     const handleDeletion = () => {
-        axios.delete(`http://localhost:3000/api/post/${props._id}/delete`)
+        axios.delete(`http://localhost:3000/api/post/${props.post._id}/delete`)
         setIsDeleted(true);
+    }
+
+    const testHandleDeletion = () => {
+        props.setShowToast(true);
+        props.setToastText(`Post "${props.post.title}" has been deleted.`);
+        navigate("/");
     }
 
     return (
         
         <div>
+            <button onClick={testHandleDeletion}> Test Buttron </button>
+
             {!isDeleted && 
                 <div className="post-content">
-                    <p> Author: {props.author}</p>
-                    <p> Title: {props.title} </p>
-                    <p> {props.text} </p>
+                    <p> Author: {props.post.author}</p>
+                    <p> Title: {props.post.title} </p>
+                    <p> {props.post.text} </p>
 
                     <a href="/"> Return Home </a>
                     <button onClick={() => {handleDeletion()}}> Delete post </button>
+                    <button onClick={() => {handleDeletion()}}> Update post </button>
+
                 </div>
             }
 

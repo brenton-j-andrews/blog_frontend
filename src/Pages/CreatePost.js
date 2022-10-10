@@ -51,6 +51,8 @@ const CreatePost = ({ postData, setPostData }) => {
 
     return (
         <div>
+            <Button onClick={() => {navigate('/')}}> Return Home </Button>
+            
             <Form onSubmit={handleSubmit}>
                 
                 <Form.Group className="m-0" controlId="author">
@@ -80,7 +82,7 @@ const CreatePost = ({ postData, setPostData }) => {
                     rows={10} 
                     placeholder="Enter post content"
                     value={formData.text}
-                    onChange={handleChange} div
+                    onChange={handleChange}
                     />
                 </Form.Group>
                 
