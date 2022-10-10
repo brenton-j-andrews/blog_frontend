@@ -30,7 +30,7 @@ const CreatePost = (props) => {
             props.setPostData((prevState) => [...prevState, response.data]);
             props.setToastText("New post successfully created.");
             props.setShowToast(true);
-            navigate(`/post/${response.data.id}`);
+            navigate(`/post/${response.data._id}`);
         })
         .catch(function(error) {
             const error_messages = Array.from(error.response.data.errors);
@@ -39,7 +39,7 @@ const CreatePost = (props) => {
         }) 
     }
 
-    // Handles post request for updating posts.
+    // Handles post request for updating existing posts.
     const handleUpdatePost = (e) => {
         e.preventDefault();
 
@@ -64,8 +64,14 @@ const CreatePost = (props) => {
 
             navigate(`/post/${response.data._id}`);
         })
+        .catch(function(error) {
+            const error_messages = Array.from(error.response.data.errors);
+            setErrorArray([...error_messages]);
+            setShowErrorAlert(true);
+        }) 
     }
 
+    // Handles form value changes.
     const handleChange = (e) => {
     
         let name = e.target.id;
