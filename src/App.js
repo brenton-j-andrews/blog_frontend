@@ -7,6 +7,7 @@ import './Styles/index.css';
 // Bootstrap Component Imports.
 import BasicToast from './Components/Toast';
 
+// My components and pages.
 import Home from './Pages/Home';
 import Post from "./Pages/Post";
 import CreatePost from "./Pages/CreatePost";

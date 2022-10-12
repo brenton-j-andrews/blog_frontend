@@ -26,6 +26,7 @@ const Home = ({ postData }) => {
                         key={post._id} >
                             <h3 className="pb-2"> { post.title} </h3>
                             <h6 className="pb-2"> Published by: { post.author } </h6>
+                            <h6 className="pb-2"> Posted on { new Date(post.date).toLocaleDateString("en-US")} </h6>
                             <Button onClick={() => {navigateToPost(post)}}> View Post </Button>
                         </Col>
                     )
