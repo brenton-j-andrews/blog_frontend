@@ -43,7 +43,7 @@ const Post = (props) => {
     }
 
     return (
-        <div>
+        <div className="post-wrapper">
             {
                 editMode ? 
             
