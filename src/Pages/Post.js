@@ -2,10 +2,24 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Import custom / Bootstrap components.
 import CreatePost from "./CreatePost";
 import CommentForm from "../Components/CommentForm";
 
+import Button from "react-bootstrap/Button";
+
+// Import icons / images.
+import like_icon from "../Assets/Icons/like.png";
+import comment_icon from "../Assets/Icons/comment.png";
+import share_icon from "../Assets/Icons/share.png";
+
 const Post = (props) => {
+
+    const date_options = {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    }
 
     const [ editMode, setEditMode ] = useState(false);
     const [ comments, setComments ] = useState([]);
@@ -61,14 +75,35 @@ const Post = (props) => {
                 :
                 
                 <div className="post-content">
-                    <p> Author: {props.post.author}</p>
-                    <p> Posted on {new Date(props.post.date).toLocaleDateString("en-US")}</p>
-                    <p> Title: {props.post.title} </p>
-                    <p> {props.post.text} </p>
+                    <h1> { props.post.title } </h1>
+                    <h5 className="text-muted"> { props.post.description } </h5>
+                                     
+                    <div className="d-flex justify-content-between align-items-center mt-4"> 
+                        <div > 
+                            <p className="fw-bold my-0"> {props.post.author}</p>
+                            <p className="text-muted my-0"> {new Date(props.post.date).toLocaleDateString("en-US", date_options)}</p>
+                        </div>
 
-                    <a href="/"> Return Home </a>
-                    <button onClick={deletePost}> Delete post </button>
-                    <button onClick={toggleEditMode}> Edit post </button>
+                        <div> 
+                            <Button variant="light" className="border border-dark mx-1">
+                                <img className="post-icon" src={like_icon} alt=""></img> 
+                            </Button>
+                           
+                           <Button variant="light" className="border border-dark mx-1">
+                                <img className="post-icon" src={comment_icon} alt=""></img>
+                           </Button>
+
+                           <Button variant="light" className="border border-dark mx-1">
+                                <img className="post-icon" src={share_icon} alt=""></img>
+                           </Button>
+                        </div>
+                        
+                    </div>
+                   
+                    {/* <p> {props.post.text} </p> */}
+
+                    {/* <a href="/"> Return Home </a> */}
+
 
                     <div className="post-comments mt-5">
                         <h3> Comments </h3>
@@ -96,3 +131,6 @@ const Post = (props) => {
 }
 
 export default Post;
+
+{/* <button onClick={deletePost}> Delete post </button>
+<button onClick={toggleEditMode}> Edit post </button>  */}

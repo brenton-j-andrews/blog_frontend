@@ -44,3 +44,13 @@ html, body {
   width: 15px;
   height: 15px;
 }
+
+/* Post page styling || */
+.post-wrapper {
+  width: 80%;
+}
+
+.post-icon {
+  width: 25px;
+  height: 25px;
+}
