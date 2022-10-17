@@ -51,7 +51,11 @@ function App() {
           <Route 
             exact 
             path="/" 
-            element = { <Home postData={postData} />} 
+            element = { 
+              <Home 
+              postData={postData} 
+              />
+            } 
           />
 
           <Route 

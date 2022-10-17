@@ -15,6 +15,7 @@ const CreatePost = (props) => {
     const [ formData, setFormData ] = useState({
         title : props.post ? props.post.title : "",
         author: props.post ? props.post.author : "",
+        description: props.post ? props.post.description : "",
         text: props.post ? props.post.text : ""
     })
     
@@ -110,6 +111,16 @@ const CreatePost = (props) => {
                     type="text" 
                     placeholder="Enter post title" 
                     value={formData.title}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Label> Post Description </Form.Label>
+                    <Form.Control 
+                    type="text" 
+                    placeholder="Enter post title" 
+                    value={formData.description}
                     onChange={handleChange}
                     />
                 </Form.Group>

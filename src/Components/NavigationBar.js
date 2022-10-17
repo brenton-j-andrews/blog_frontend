@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 const NavigationBar = () => {
     return (
-        <Navbar expand="lg" bg="light" className="container my-5 py-3">
+        <Navbar expand="lg" bg="light" className="container-fluid my-5 py-3 border-top border-bottom">
             <Container>
                 <Navbar.Brand href="/"> My Blog </Navbar.Brand>
             
